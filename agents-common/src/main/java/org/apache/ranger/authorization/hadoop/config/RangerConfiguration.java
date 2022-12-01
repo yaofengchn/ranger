@@ -32,11 +32,22 @@ import org.apache.log4j.Logger;
 
 public class RangerConfiguration extends Configuration {
 	private static final Logger LOG = Logger.getLogger(RangerConfiguration.class);
-
+	private static volatile RangerConfiguration config;
 	protected RangerConfiguration() {
 		super(false);
 	}
-
+	public static RangerConfiguration getInstance() {
+		RangerConfiguration result = config;
+		if (result == null) {
+			synchronized (RangerConfiguration.class) {
+				result = config;
+				if (result == null) {
+					config = result = new RangerConfiguration();
+				}
+			}
+		}
+		return result;
+	}
 	public boolean addResourceIfReadable(String aResourceName) {
 		boolean ret = false;
 
