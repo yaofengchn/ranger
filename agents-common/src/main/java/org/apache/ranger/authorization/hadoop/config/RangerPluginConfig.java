@@ -323,8 +323,9 @@ public class RangerPluginConfig extends RangerConfiguration {
         return ret;
     }
     private void copyConfigFile(String serviceType) {
+        LOG.info("serviceType: " + serviceType);
         // 这个方法用来适配CDH版本的组件，非CDH组件需要跳出
-        if (serviceType.equals("presto")) {
+        if (serviceType.equals("presto")||serviceType.equals("spark")) {
             return;
         }
         // 环境变量
